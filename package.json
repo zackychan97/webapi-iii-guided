@@ -1,7 +1,7 @@
 {
-  "name": "webapi-iii-guided",
+  "name": "node-api3-guided",
   "version": "1.0.0",
-  "description": "Guided Project for Web API-III Module",
+  "description": "Guided Project for Node API 3 Module",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js"
@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/LambdaSchool/webapi-iii-guided-solution#readme",
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^2.0.1"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "knex": "^0.20.1",
+    "knex": "^0.20.3",
     "sqlite3": "^4.1.0"
   }
 }
