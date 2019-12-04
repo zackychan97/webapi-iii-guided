@@ -1,12 +1,12 @@
-# Web API III Guided Project
+# Node API 3 Guided Project
 
-Guided project for **Web API III** module.
+Starter code for **Node API 3** lecture.
 
-In this project we will learn how to create a very simple Web API using `Node.js` and `Express`, and learn to use and create `Express Middleware`.
+In this project we will learn how to create a very simple Web API using `Node.js` and `Express`, and learn to write and use `Express Middleware`.
 
 ## Prerequisites
 
-- [Postman](https://www.getpostman.com/downloads/) installed.
+- a REST client like [insomnia](https://insomnia.rest/download/) or [Postman](https://www.getpostman.com/downloads/) installed.
 
 ## Project Setup
 
