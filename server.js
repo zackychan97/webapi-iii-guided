@@ -7,6 +7,8 @@ const server = express();
 
 // middleware
 
+
+
 // custom middleware
 function logger(req, res, next) {
   console.log(`${req.method} to ${req.originalUrl}`)
@@ -17,17 +19,35 @@ function logger(req, res, next) {
 //write a gatekeeper middleware that reads a password from the headers   and if the password is 'mellon', let it continue
 // if not send back status code 401 and a message. Use it for the        /area51 endpoint
 
+//gatekeeper
 function gatekeeper(req, res, next) {
-  console.log('Gatekeeper is checking')
-  next()
+  const password = req.headers.password;
+  
+  if (password && password.toLowerCase() === 'mellon') {
+    next();
+  } else {
+    res.status(401).json({ you: 'Shall not pass!!' })
+  }
+}
+
+//checkRole
+const checkRole = (role) => {
+  return function(req, res, next) {
+    if(role && role === req.headers.role){
+      next()
+    } else {
+      res.status(403).json({message: 'cant touch this'} )
+    }
+  };
 }
 
 
 server.use(helmet()); // 3rd party middleware
 server.use(express.json()); // built-in middleware
+server.use(logger)
 
 // endpoints
-server.use('/api/hubs', helmet(), hubsRouter);
+server.use('/api/hubs', checkRole('admin'), hubsRouter);
 
 server.get('/', (req, res) => {
   const nameInsert = (req.name) ? ` ${req.name}` : '';
@@ -42,14 +62,13 @@ server.get('/echo', (req, res) => {
     res.send(req.headers);
 });
 
-server.use(gatekeeper);
-server.get('/area51', helmet(), (req, res) => {
-  if (req.headers.password === 'melon') {
+
+server.get('/area51', gatekeeper, checkRole('agent'), (req, res) => {
     res.send(req.headers)
-  } else {
-    res.status(401).json({ errorMessage: 'Sorry password incorrect bud.' })
-  }
-   
+ 
 });
 
 module.exports = server;
+
+// checkRole('admin'), checkRole('agents')
+
